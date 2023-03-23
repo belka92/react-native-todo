@@ -1,18 +1,17 @@
-import shortid from "shortid";
 import React, { useState } from "react";
-import { MaterialIcons } from "@expo/vector-icons";
-import {
-  View,
-  StyleSheet,
-  TextInput,
-  GestureResponderEvent,
-} from "react-native";
+import { View, TextInput, GestureResponderEvent } from "react-native";
 
-import { ITodo } from "../types/types";
-import useAddTodo from "../hooks/useAddTodo";
-import useEditTodo from "../hooks/useEditTodo";
+import { ITodo } from "../../types/types";
+import useAddTodo from "../../hooks/useAddTodo";
+import useEditTodo from "../../hooks/useEditTodo";
+
+import shortid from "shortid";
+import { useStyles } from "./useStyles";
+import { MaterialIcons } from "@expo/vector-icons";
 
 const TodoForm = ({ isEditing, setIsEditing, todo }: TodoFormProps) => {
+  const { styles } = useStyles();
+
   const [userInput, setUserInput] = useState(isEditing ? todo?.todo : "");
 
   const { addTodo } = useAddTodo();
@@ -74,29 +73,3 @@ export type TodoFormProps = {
   setIsEditing?: (e: boolean) => void;
   todo?: ITodo;
 };
-
-const styles = StyleSheet.create({
-  container: {
-    height: 50,
-    width: 335,
-    borderWidth: 1,
-    borderRadius: 6,
-    flexDirection: "row",
-    borderColor: "black",
-    backgroundColor: "#edf4f5",
-    alignSelf: "center",
-  },
-  input: {
-    flex: 1,
-    fontSize: 14,
-    paddingLeft: 15,
-    width: 280,
-    paddingTop: 5,
-    textAlign: "justify",
-    alignItems: "center",
-  },
-  icon: {
-    paddingRight: 15,
-    paddingTop: 10,
-  },
-});

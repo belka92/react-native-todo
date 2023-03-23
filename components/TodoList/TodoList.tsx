@@ -2,21 +2,22 @@ import React, { useEffect, useMemo } from "react";
 import {
   View,
   FlatList,
-  StyleSheet,
   RefreshControl,
   ActivityIndicator,
 } from "react-native";
 
-import Header from "./Header";
-import TodoItem from "./TodoItem";
-import TodoForm from "./TodoForm";
+import Header from "../Header/Header";
+import TodoForm from "../TodoForm/TodoForm";
+import TodoItem from "../TodoItem/TodoItem";
 
-import { useTodo } from "../hooks/useTodo";
-import { getToDos } from "../store/todoSlice";
-import { useAppDispatch, useAppSelector } from "../hooks/redux";
+import { useTodo } from "../../hooks/useTodo";
+import { getToDos } from "../../store/todoSlice";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux";
+import { useStyles } from "./useStyles";
 
 const TodoList = () => {
   const { data, fetchNextPage, isRefetching, refetch, isLoading } = useTodo();
+  const { styles } = useStyles();
   const dispatch = useAppDispatch();
   const todos = useAppSelector((state) => state.todos);
 
@@ -59,14 +60,5 @@ const TodoList = () => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  header: {
-    backgroundColor: "rgba(255,255,255,0.9)",
-    paddingBottom: 14,
-    borderBottomRightRadius: 10,
-    borderBottomLeftRadius: 10,
-  },
-});
 
 export default TodoList;

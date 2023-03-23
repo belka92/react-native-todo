@@ -4,7 +4,7 @@ import { SafeAreaView, NativeModules } from "react-native";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import { store } from "./store/store";
-import TodoList from "./components/TodoList";
+import { TodoList } from "./components";
 
 // Create a client
 const queryClient = new QueryClient();

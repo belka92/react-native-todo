@@ -1,14 +1,18 @@
 import React, { useState } from "react";
-import TodoForm from "./TodoForm";
-import { ITodo } from "../types/types";
-import useRemoveTodo from "../hooks/useRemoveTodo";
-import useCompletedTodo from "../hooks/useCompletedTodo";
+import { View, Text, Button, Pressable } from "react-native";
+
+import TodoForm from "../TodoForm/TodoForm";
+import useRemoveTodo from "../../hooks/useRemoveTodo";
+import useCompletedTodo from "../../hooks/useCompletedTodo";
+
+import { useStyles } from "./useStyles";
+import { ITodo } from "../../types/types";
 import { MaterialIcons, Feather } from "@expo/vector-icons";
-import { View, Text, StyleSheet, Button, Pressable } from "react-native";
 
 const TodoItem = ({ todo }: { todo: ITodo }) => {
   const [isEditing, setIsEditing] = useState(false);
 
+  const { styles } = useStyles(todo);
   const { removeTodo } = useRemoveTodo();
 
   const deleteTodo = (id: number | string) => {
@@ -32,19 +36,8 @@ const TodoItem = ({ todo }: { todo: ITodo }) => {
         />
       ) : (
         <View style={styles.container}>
-          <View style={styles.text}>
-            {!todo?.completed ? (
-              <Text numberOfLines={3}>{todo?.todo}</Text>
-            ) : (
-              <Text
-                style={{
-                  textDecorationLine: "line-through",
-                  textDecorationStyle: "solid",
-                }}
-              >
-                {todo?.todo}
-              </Text>
-            )}
+          <View>
+            <Text style={styles.text}>{todo?.todo}</Text>
           </View>
 
           <Pressable onPress={handleUpdate}>
@@ -69,20 +62,3 @@ const TodoItem = ({ todo }: { todo: ITodo }) => {
 };
 
 export default TodoItem;
-
-const styles = StyleSheet.create({
-  container: {
-    gap: 5,
-    flex: 1,
-    padding: 10,
-    borderWidth: 1,
-    borderRadius: 6,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "#d7f8fc",
-  },
-  text: {
-    width: 200,
-  },
-});
